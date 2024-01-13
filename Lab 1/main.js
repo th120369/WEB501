@@ -1,8 +1,7 @@
 /*MỤC TIÊU: ÔN TẬP KIẾN THỨC DOM VÀ CÁC HÀM PHƯƠNG THỨC BUILT- IN XỬ LÝ
-MẢNG + STRING
+MẢNG + STRING*/
 
-Bài 1 (2 điểm):
-Cho code như trong hình sau:*/
+// Bài 1 (2 điểm):
 var users = [
   { id: 1, name: "Jams Smith", gender: 1 },
   { id: 2, name: "Isla Brown", gender: 2 },
@@ -11,66 +10,46 @@ var users = [
 ];
 var target = document.querySelector("#target");
 
-/*Sử dựng phương thức mảng, từ mảng users sinh ra các thẻ li như ví dụ ở
-dưới:
-*/
 let html = users.map((item, index) => {
   let gender = item.gender == 1 ? "male" : "female";
-  return `<li><a href="">${item.id}-${item.name}-${gender}</a></li>`;
+  return `<li>${item.id}-${item.name}-${gender}</li>`;
 });
 target.innerHTML = html.join("");
-/*LAB 1: LẬP TRÌNH ECMA
 
-TIN HỌC TRANG 2
-Bài 2 (3 điểm): Luyện tập phương thức built-in xử lý mảng
-Tạo form như trong hình:
 
-Viết code javascript để thực hiện công việc:
-- Điền thông tin vào các field ID, Name
-- Lựa chọn gender
-- Click vào button “Add”
-Yêu cầu sau khi click vào button “Add” thì sẽ cập nhật dữ liệu từ form vào
-mảng users sau đó generate danh sách này vào thẻ ul (hiển thị thêm 1 thẻ
-li với dữ liệu đã nhập vào form)*/
+// Bài 2 (3 điểm): 
 function bai2() {
   let id = document.querySelector("input[name='id']").value;
   let name = document.querySelector("input[name='name']").value;
   let gender = document.querySelector("select[name='gender']").value;
-  target.innerHTML += `<li><a href="">${id}-${name}-${gender}</a></li>`;
+  target.innerHTML += `<li>${id}-${name}-${gender}</li>`;
 }
 let btnAdd = document.querySelector(".add");
 btnAdd.addEventListener("click", bai2);
 
-/*Bài 3 (2 điểm):
-Cho giao diện như hình dưới đây:
-Yêu cầu:
-- Nhập vào một chuỗi và click nút “Convert”
-- Hiển thị chuỗi mới ở bên dưới đã được chuyển sang format
-camelCase, bỏ đi khoảng trắng và các ký tự đặc biệt.
-Input:
-- fpt .,/ poly
-- javascript …. /// nang,,, cao
-Output:
-- fptPoly
-- javascriptNangCao*/
-function bai3() {
-  let string = document.querySelector('input[name="inputStr"').value;
-  string = string.replace(/[^\w\s]/g, "");
-  string = string.split(" ");
-  let [str, ...strs] = string;
-  let output = [str];
-  strs.forEach((value) => {
-    if (value != "") {
-      let tmp = value.replace(value[0], value[0].toUpperCase());
-      output.push(tmp);
-    }
+// Bài 3 (2 điểm):
+// Hàm chuyển đổi chuỗi sang camelCase
+function toCamelCase(str) {
+    str = str.replace(/[^a-zA-Z ]/g, "");
+    str = str.replace(/(?:^\w|[A-Z]|\b\w)/g, function (word, index) {
+      return index === 0 ? word.toLowerCase() : word.toUpperCase();
+    });
+    str = str.replace(/\s+/g, "");
+    return str;
+  }
+  //
+  var inputStr = document.querySelector("input[name=inputStr]");
+  var btnConvert = document.getElementById("btnConvert");
+  var output = document.getElementById("output");
+  
+  //
+  btnConvert.addEventListener("click", function () {
+    var str = inputStr.value;
+    var result = toCamelCase(str);
+    output.textContent = result;
   });
-  console.log(output.join(""));
-}
-let btnConvert = document.querySelector("#btnConvert");
-btnConvert.addEventListener("click", bai3);
 
-/*Bài 4 (3 điểm): Bài tập về mảng dữ liệu*/
+// Bài 4 (3 điểm): Bài tập về mảng dữ liệu
 let classRoom = [
   "nguyễn tiến duẩn",
   "Hoàng Xuân Hiếu",
@@ -82,25 +61,38 @@ let classRoom = [
   "đoàn vua dep trai vua hoc gioi Hữu Quý",
 ];
 
-/*Câu 1: Tach ten va ho rieng*/
-classRoom.forEach((value, index) => {
-  if (index != classRoom.length - 1) {
-    let fullName = value.trim().split(" ");
-    let [firstName, lastName] = fullName;
-    console.log(firstName, lastName);
-  } else {
-    let fullName = value.split(" ");
-    fullName = fullName.slice(-2);
-    let [firstName, lastName] = fullName;
-    console.log(firstName, lastName);
+// Câu 1: Tach ten va ho rieng
+
+let output2 = "";
+output2 += "<hr> Câu 1<hr>";
+for (let name of classRoom) {
+    let parts = name.trim().split(" ");
+    let lastName = parts[0].charAt(0).toUpperCase() +parts[0].slice(1);
+    let firstName = parts[parts.length - 1].charAt(0).toUpperCase() +parts[parts.length - 1].slice(1);
+    output2 += `Họ: ${lastName}, Tên: ${firstName}<br>`;
+    console.log(`Họ: ${lastName}, Tên: ${firstName}`);
   }
-});
-/*Câu 2: Thêm một sv vào một vị trí bất kỳ trong mảng*/
-classRoom.splice(2, 0, "Nguyễn Huy Tới");
-/*Câu 3: Xoá một sinh viên khỏi mảng*/
+
+
+// Câu 2: Thêm một sv vào một vị trí bất kỳ trong mảng
+output2 += "<hr> Câu 2<hr>";
+output2 += JSON.stringify(classRoom) + "<br>"; // Thêm kết quả vào biến output, kèm theo thẻ <br> để xuống dòng
+classRoom.splice(2, 0, "Nguyễn Tiến Hoàng");
+console.log(classRoom);
+// Câu 3: Xoá một sinh viên khỏi mảng
+output2 += "<hr> Câu 3<hr>";
+let index = classRoom.indexOf("Nguyễn Tiến Hoàng");
+if (index > -1) {
+  classRoom.splice(index, 1);
+}
+//
 classRoom.splice(3, 1);
-/*Câu 4: Tìm kiếm theo tên, không chứa dấu*/
-function bai4(str) {
+//
+output2 += JSON.stringify(classRoom) + "<br>"; //
+console.log(classRoom);
+// Câu 4: Tìm kiếm theo tên, không chứa dấu\
+output2 += "<hr> Câu 4<hr>";
+function cau4(str) {
   str = str.toLowerCase();
   str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
   str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
@@ -113,7 +105,12 @@ function bai4(str) {
 }
 function searchName(keyword) {
   return classRoom.filter((str) => {
-    return bai4(str).includes(bai4(keyword));
+    return cau4(str).includes(cau4(keyword));
   });
 }
-console.log(searchName("nguyen"));
+output2 += JSON.stringify(searchName("hoang")) + "<br>"; // 
+
+// 
+document.getElementById("output2").innerHTML = output2;
+console.log(searchName("hoang"));
+

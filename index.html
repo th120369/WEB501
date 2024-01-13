@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Style để hiển thị các div */
+        div {
+            width: 50px;
+            height: 50px;
+            border: 1px solid #000;
+            margin: 5px;
+        }
+    </style>
+    <title>Rainbow Button</title>
+</head>
+<body>
+
+    <div id="red"></div>
+    <div id="orange"></div>
+    <div id="yellow"></div>
+    <div id="green"></div>
+    <div id="blue"></div>
+    <div id="indigo"></div>
+    <div id="violet"></div>
+    <button onclick="
+        // Khai báo một biến để lưu trạng thái của các div
+        var colored = false;
+        var divs = document.querySelectorAll('div');
+        for (var i = 0; i < divs.length; i++) {
+            if (divs[i].style.backgroundColor) {
+                colored = true;
+                break;
+            }
+        }
+        // Nếu trạng thái là true, đặt màu nền của các div về trống
+        if (colored) {
+            for (var i = 0; i < divs.length; i++) {
+                divs[i].style.backgroundColor = '';
+            }
+        } else {
+            // Nếu trạng thái là false, đặt màu nền của các div theo cầu vồng
+            document.getElementById('red').style.backgroundColor = 'red';
+            document.getElementById('orange').style.backgroundColor = 'orange';
+            document.getElementById('yellow').style.backgroundColor = 'yellow';
+            document.getElementById('green').style.backgroundColor = 'green';
+            document.getElementById('blue').style.backgroundColor = 'blue';
+            document.getElementById('indigo').style.backgroundColor = 'indigo';
+            document.getElementById('violet').style.backgroundColor = 'violet';
+        }
+    ">Make me a rainbow</button>
+
+</body>
+</html>
+
+
